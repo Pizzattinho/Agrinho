@@ -60,7 +60,109 @@
             </div>
         </article>
     </section>
-   
+    
+    <section class="comparacao">
+        <article class="card campo">
+            <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329" alt="Trabalho no campo">
+            <div class="card-content">
+                <h3>Trabalho Rural</h3>
+                <ul>
+                    <li>Atividades ligadas à terra</li>
+                    <li>Horários flexíveis</li>
+                    <li>Trabalho físico intenso</li>
+                    <li>Conexão com ciclos naturais</li>
+                    <li>Dependência do clima</li>
+                    <li>Mercado mais limitado</li>
+                </ul>
+            </div>
+        </article>
+        
+        <article class="card cidade">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Trabalho na cidade">
+            <div class="card-content">
+                <h3>Trabalho Urbano</h3>
+                <ul>
+                    <li>Diversidade de carreiras</li>
+                    <li>Horários mais rígidos</li>
+                    <li>Maior competição</li>
+                    <li>Oportunidades de networking</li>
+                    <li>Salários geralmente maiores</li>
+                    <li>Custos de vida elevados</li>
+                </ul>
+            </div>
+        </article>
+    </section>
 
+    <section class="feedback">
+        <h3>Gostou deste conteúdo?</h3>
+        <div class="reaction-buttons">
+            <button id="like-btn" class="reaction-btn">
+                👍 <span id="like-count">0</span>
+            </button>
+            <button id="dislike-btn" class="reaction-btn">
+                👎 <span id="dislike-count">0</span>
+            </button>
+        </div>
+        <p id="feedback-message"></p>
+    </section>
+    
+    <footer>
+        <p> Desenvolvido para projetos escolares.</p>
+    </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeBtn = document.getElementById('like-btn');
+            const dislikeBtn = document.getElementById('dislike-btn');
+            const likeCount = document.getElementById('like-count');
+            const dislikeCount = document.getElementById('dislike-count');
+            const feedbackMessage = document.getElementById('feedback-message');
+            
+            const userVote = localStorage.getItem('userVote');
+            
+            let likes = parseInt(localStorage.getItem('likes')) || 0;
+            let dislikes = parseInt(localStorage.getItem('dislikes')) || 0;
+            
+            likeCount.textContent = likes;
+            dislikeCount.textContent = dislikes;
+            
+            if (userVote) {
+                if (userVote === 'like') {
+                    likeBtn.disabled = true;
+                    likeBtn.style.opacity = '0.7';
+                    feedbackMessage.textContent = "Obrigado pelo seu like!";
+                } else if (userVote === 'dislike') {
+                    dislikeBtn.disabled = true;
+                    dislikeBtn.style.opacity = '0.7';
+                    feedbackMessage.textContent = "Sua opinião é importante para nós!";
+                }
+            }
+            
+            function updateCounter(type) {
+                if (type === 'like') {
+                    likes++;
+                    localStorage.setItem('likes', likes);
+                    likeCount.textContent = likes;
+                    feedbackMessage.textContent = "Obrigado pelo seu like! 😊";
+                } else {
+                    dislikes++;
+                    localStorage.setItem('dislikes', dislikes);
+                    dislikeCount.textContent = dislikes;
+                    feedbackMessage.textContent = "Sua opinião nos ajuda a melhorar!";
+                }
+                
+                localStorage.setItem('userVote', type);
+                
+                likeBtn.disabled = true;
+                dislikeBtn.disabled = true;
+                likeBtn.style.opacity = '0.7';
+                dislikeBtn.style.opacity = '0.7';
+            }
+            
+            likeBtn.addEventListener('click', () => updateCounter('like'));
+            dislikeBtn.addEventListener('click', () => updateCounter('dislike'));
+        });
+    </script>
+</body>
+</html>
 
